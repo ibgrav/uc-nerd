@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <title>~ADMIN~</title>
+
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: rgba(25,40,120,0.7);
+            margin: 30% 0 0 0;
+            font-family: 'Roboto', sans-serif !important;
+        }
+
+        .submit-button {
+            width: 100%;
+            background-color: rgb(205,105,155);
+            text-align: center;
+            line-height: 60px;
+            font-size: 30px;
+            margin: auto;
+            opacity: 0.8;
+            color: rgba(25,40,120,0.7);
+        }
+
+        .submit-button:hover {
+            cursor: pointer;
+        }
+
+        .input-box {
+            margin: 10px auto;
+            display: block;
+            line-height: 60px;
+            text-align: center;
+            width: 100%;
+            background-color: rgba(0,0,0,0);
+            color: white;
+            border: none;
+            font-size: 30px;
+        }
+
+        .input-box::placeholder {
+            color: rgb(205,105,155);
+        }
+    </style>
+</head>
+
+<body>
+    <input id="admin-password" class="input-box" type="password" placeholder="pass" />
+    <div id="admin-login" class="submit-button">></div>
+
+    <script>
+        var password = document.getElementById('admin-password');
+        var url = new URL(window.location.href);
+        var r = url.searchParams.get("r");
+
+        if(r) alert('wrong password ya filthy animal');
+
+        function loginAdmin(){
+            if(password.value){
+                window.location.href = "admin/adminGo?q="+password.value;
+            }
+            else alert('enter a password ya dingus');
+        }
+
+        document.getElementById('admin-password').addEventListener('keydown', function(){
+            if(event.which == 13){
+                loginAdmin();
+            }
+        });
+        document.getElementById('admin-login').addEventListener('click', loginAdmin);
+    </script>
+</body>
+
+</html>

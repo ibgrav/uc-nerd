@@ -1,0 +1,35 @@
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+    <channel>
+        <title>Undercover Nerd</title>
+        <link>https://undercovercast.com/</link>
+        <language>en-us</language>
+        <itunes:subtitle>Take a journey</itunes:subtitle>
+        <itunes:author>Scot</itunes:author>
+        <itunes:summary>
+            Hey there! I'm a big boy in a small world; join me and discover.
+        </itunes:summary>
+        <description>
+            Hey there. I'm a big boy in a small world; join me and discover.
+        </description>
+        <itunes:owner>
+            <itunes:name>Scot</itunes:name>
+            <itunes:email>scot@undercovercast.com</itunes:email>
+        </itunes:owner>
+        <itunes:explicit>no</itunes:explicit>
+        <itunes:image href="https://undercovercast.com/cover.png" />
+        <itunes:category text="Society &amp; Culture" />
+        <item>
+            <title>Teaser</title>
+            <itunes:summary>Welcome to my podcast!</itunes:summary>
+            <description>Welcome to my podcast!</description>
+            <link>https://undercovercast.com/?episode=0</link>
+            <enclosure url="https://undercovercast.com/pod/0.mp3"
+                length="1024" />
+            <pubDate>Fri, 11 Jan 2019 08:00:00 +0000</pubDate>
+            <itunes:author>Scot</itunes:author>
+            <itunes:duration>00:02:53</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <guid>https://undercovercast.com/?episode=0</guid>
+        </item>
+    </channel>
+</rss>

@@ -1,0 +1,27 @@
+{
+  "name": "uc-nerd",
+  "version": "1.0.0",
+  "description": "undercovernerd.com",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm uc",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibgrav/uc-nerd.git"
+  },
+  "author": "Isaac Graves",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ibgrav/uc-nerd/issues"
+  },
+  "homepage": "https://github.com/ibgrav/uc-nerd#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "path": "^0.12.7"
+  }
+}

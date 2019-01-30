@@ -1,0 +1,238 @@
+<html>
+
+<head>
+    <title>~ADMIN~ Undercover Nerd</title>
+
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    
+    <!-- <link rel="stylesheet" media="all" href="css/styles.css"> -->
+    <style>
+        body {
+            background-color: rgba(25,40,120,0.7);
+            margin: 5% 0 0 0;
+            font-family: 'Roboto', sans-serif !important;
+        }
+
+        #pod-up-box {
+            transform: translateX(-110%);
+        }
+
+        .option-button {
+            width: 100%;
+            background-color: rgb(205,105,155);
+            text-align: center;
+            line-height: 60px;
+            font-size: 30px;
+            margin: auto;
+            border: none;
+            opacity: 0.8;
+            color: rgba(25,40,120,0.7);
+        }
+
+        .option-button:hover {
+            cursor: pointer;
+        }
+
+        .form-box {
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            text-align: center;
+            transition: all 1s;
+        }
+
+        .form-box.expand-form-box {
+            max-height: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .file-up-form {
+            width: 100%;
+            margin: auto;
+        }
+
+        #name-suggestion {
+            width: 100%;
+            margin: auto;
+        }
+
+        .file-select-btn {
+            margin: 20px 0;
+        }
+
+        .ex-pod-select-box {
+            width: 250px;
+            margin: 100px auto 20px auto;
+        }
+
+        #ex-pod-select {
+            transition: transform 0.5s;
+        }
+
+        .select-move-up {
+            transform: translateY(-40px);
+        }
+
+        #item-explicit {
+            margin: 5px 0;
+        }
+
+        #up-ex-select-box input {
+            margin: 10px auto;
+            display: block;
+            line-height: 60px;
+            text-align: center;
+            width: 100%;
+            background-color: rgba(0,0,0,0);
+            color: white;
+            border: none;
+            font-size: 30px;
+        }
+
+        #up-ex-select-box input::placeholder {
+            color: rgb(205,105,155);
+        }
+
+        @keyframes btnOut {
+            0% {}
+            100% {transform: translateX(-1000px); background-color: rgba(0,205,255,0.5);}
+        }
+
+        @keyframes boxIn {
+            0% {}
+            100% {transform: translateX(0); background-color: rgba(100,105,255,1);}
+        }
+
+        @media screen and (max-width: 1000px){
+            .admin-box {
+                width: 80%;
+            }
+        }
+        @media screen and (max-width: 600px){
+            .admin-box {
+                width: 100%;
+                padding: 20% 0 0 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="up-new-btn" class="option-button">new</div>
+    <div id="up-new-box" class="form-box">
+        <div id="name-suggestion"></div>
+        <form class="file-up-form" action="/admin/send/pod" enctype="multipart/form-data" method="POST">
+            <input class="file-select-btn" type="file" name="myFile" id="myFile" required />
+            <input class="file-up-btn option-button" type="submit" value="go" />
+        </form>
+    </div>
+    <div id="up-ex-btn" class="option-button">old</div>
+    <div id="up-ex-box" class="form-box">
+        <div id="up-ex-select-in"></div>
+        <div id="up-ex-select-box">
+            <input id="item-title" type="text" placeholder="Title" />
+            <input id="item-desc" type="text" placeholder="Description" />
+            <input id="item-pubDate" type="text" placeholder="mm/dd/yyyy" />
+            <input id="item-author" type="text" placeholder="Author" />
+            <input id="item-link" type="text" placeholder="Link" />
+            <input id="item-duration" type="text" placeholder="Duration 00:00:00" />
+            <select id="item-explicit" placeholder="Explicit">
+                <option value="" disabled="" selected="" hidden="hidden">Explicit?</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            <input id="item-guid" type="text" placeholder="guid (same as link)" />
+            <input id="item-enclosure" type="text" placeholder="mp3 URL" />
+            <div id="up-ex-submit-btn" class="option-button">></div>
+        </div>
+    </div>
+
+    <script>
+        var upNewBtn = document.getElementById('up-new-btn');
+        var upExBtn = document.getElementById('up-ex-btn');
+        
+        var upNewBox = document.getElementById('up-new-box');
+        var upExBox = document.getElementById('up-ex-box');
+
+        var upExSubmit = document.getElementById('up-ex-submit-btn');
+        
+
+        var testPod = {};
+
+        var getJSON = function(url, successHandler, errorHandler) {
+            var xhr = typeof XMLHttpRequest != 'undefined'
+                ? new XMLHttpRequest()
+                : new ActiveXObject('Microsoft.XMLHTTP');
+            xhr.open('get', url, true);
+            xhr.onreadystatechange = function() {
+                var status; var data;
+                if (xhr.readyState == 4) { // `DONE`
+                    status = xhr.status;
+                    if (status == 200) {
+                        data = JSON.parse(xhr.responseText);
+                        successHandler && successHandler(data);
+                    } else { errorHandler && errorHandler(status); }
+                }
+            };
+            xhr.send();
+        };
+
+        getJSON('/test/json', function(data) {
+            console.log('Get success: ' , data);
+            testPod = data;
+
+            var updateHTML = '';
+            updateHTML = '<div class="ex-pod-select-box"><select id="ex-pod-select"><option value="" disabled="" selected="" hidden="hidden">Select Podcast to Edit:</option>';
+                
+            for(var i=0; i < testPod.item.length; i++){
+                updateHTML += '<option value="'+i+'">'+ i +': '+ testPod.item[i].title +'</option>';
+            }
+
+            updateHTML += '</select></div>';
+
+            document.getElementById('up-ex-select-in').innerHTML += updateHTML;
+            
+            var exPodSelect = document.getElementById('ex-pod-select');
+            exPodSelect.addEventListener('change', function(){
+                this.classList.add('select-move-up');
+                document.getElementById('up-ex-select-box').classList.add('select-move-up');
+            });
+
+            var nameSuggestion = 'Should probably be titled: '+ testPod.item.length + '.mp3';
+
+            document.getElementById('name-suggestion').innerHTML = nameSuggestion;
+        }, function(status) {
+            console.log('Something went wrong.');
+        });
+
+        upNewBtn.addEventListener('click', function(){
+            document.getElementById('up-new-box').classList.add('expand-form-box');
+            document.getElementById('up-ex-box').classList.remove('expand-form-box');
+        });
+        upExBtn.addEventListener('click', function(){
+            document.getElementById('up-new-box').classList.remove('expand-form-box');
+            document.getElementById('up-ex-box').classList.add('expand-form-box');
+        });
+
+        upExSubmit.addEventListener('click', function(){
+            var item = document.getElementById('ex-pod-select').value;
+            var title = document.getElementById('item-title').value;
+            var description = document.getElementById('item-desc').value;
+            var pubDate = document.getElementById('item-pubDate').value;
+            var author = document.getElementById('item-author').value;
+            var link = document.getElementById('item-link').value;
+            var duration = document.getElementById('item-duration').value;
+            var explicit = document.getElementById('item-explicit').value;
+            var guid = document.getElementById('item-guid').value;
+            var enclosure = document.getElementById('item-enclosure').value;
+
+            window.location.replace('https://undercovercast.com/admin/send?item='+item+'&title='+title+
+                                '&description='+description+'&pubDate='+pubDate+'&author='+
+                                author+'&link='+link+'&duration='+duration+'&explicit='+
+                                explicit+'&guid='+guid+'&enclosure='+enclosure);
+        });
+    </script>
+</body>
+
+</html>
