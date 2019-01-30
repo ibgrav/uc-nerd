@@ -59,7 +59,7 @@
 
         function loginAdmin(){
             if(password.value){
-                window.location.href = "admin/adminGo?q="+password.value;
+                window.location.href = window.location.href.replace('admin', '') + "/adminGo?q="+password.value;
             }
             else alert('enter a password ya dingus');
         }
