@@ -55,17 +55,16 @@
         var url = new URL(window.location.href);
         var r = url.searchParams.get("r");
 
-        if(r) alert('wrong password ya filthy animal');
+        if (r) alert('wrong password ya filthy animal');
 
-        function loginAdmin(){
-            if(password.value){
-                window.location.href = window.location.href.replace('admin', '') + "/adminGo?q="+password.value;
-            }
-            else alert('enter a password ya dingus');
+        function loginAdmin() {
+            if (password.value) {
+                window.location.href = window.location.href.replace('admin', '') + "/adminGo?q=" + password.value;
+            } else alert('enter a password ya dingus');
         }
 
-        document.getElementById('admin-password').addEventListener('keydown', function(){
-            if(event.which == 13){
+        document.getElementById('admin-password').addEventListener('keydown', function () {
+            if (event.which == 13) {
                 loginAdmin();
             }
         });
