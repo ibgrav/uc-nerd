@@ -7,6 +7,7 @@ const fs = require('fs');
 const aws = require('aws-sdk');
 // aws.config.region = 'us-east-2';
 const S3_BUCKET = process.env.S3_BUCKET;
+var podChannel = {};
 
 const mongodb = require('mongodb');
 let uri = "mongodb://ibgrav:L337sauce@ds155490.mlab.com:55490/uc-nerd";
@@ -17,6 +18,7 @@ mongodb.MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client
     let channel = db.collection('channel');
     
     channel.find({}).toArray(function(err, items) {
+        podChannel = items;
         items.forEach(function (item) {
             console.log(item);
         });
@@ -225,6 +227,7 @@ app.get('/admin', function (req, res) {
             '<div id="up-ex-submit-btn" class="option-button">></div>' +
             '</div></div>' +
             '<script type="text/javascript" src="admin.js"></script>' +
+            '<script>console.log("'+ podChannel +'")</script>'
             '</body></html>');
         adminAuth = false;
     } else {
