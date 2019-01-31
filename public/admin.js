@@ -58,8 +58,8 @@ getJSON('/test/json', function (data) {
     console.log('Something went wrong.');
 });
 
-getJSON('/s3-all'), function (data) {
-    console.log(data);
+getJSON('/s3-all', function (data) {
+    console.log('Get success: ', data);
 }, function (status) {
     console.log('Something went wrong.');
 });
