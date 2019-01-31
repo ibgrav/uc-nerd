@@ -22,7 +22,7 @@ body {
 }
 
 .test-audio-player {
-    margin: 30px auto;
+    margin: 20px auto 10px auto;
 }
 
 #name-suggestion {
