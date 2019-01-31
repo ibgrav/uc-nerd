@@ -21,6 +21,10 @@ body {
     color: rgba(25,40,120,0.7);
 }
 
+.test-audio-player {
+    margin: 30px auto;
+}
+
 #name-suggestion {
     color: rgb(205,105,155);
 }
