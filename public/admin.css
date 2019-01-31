@@ -49,10 +49,12 @@ body {
 #name-suggestion {
     width: 100%;
     margin: auto;
+    margin: 20px auto 0 auto;
 }
 
 .file-select-btn {
     margin: 20px 0;
+    color: rgb(205,105,155);
 }
 
 .ex-pod-select-box {
