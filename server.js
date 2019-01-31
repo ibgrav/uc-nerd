@@ -7,7 +7,6 @@ const fs = require('fs');
 const aws = require('aws-sdk');
 // aws.config.region = 'us-east-2';
 const S3_BUCKET = process.env.S3_BUCKET;
-console.log(S3_BUCKET);
 
 const podData = require('./public/pod.json');
 var sPod = podData;
