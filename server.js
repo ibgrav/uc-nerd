@@ -17,7 +17,7 @@ var testPod = testData;
 
 var adminAuth = false;
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 function rAnd(data) {
     return data.replace('&', '&amp;');
@@ -54,7 +54,7 @@ function handleError(res, reason, message, code) {
 var db;
 
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/test", function (err, client) {
+mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:8080/test", function (err, client) {
   if (err) {
     console.log(err);
     process.exit(1);
