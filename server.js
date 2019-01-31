@@ -63,7 +63,7 @@ app.get('/s3-all', function (req, res, next) {
         console.log(data);
         res.send('<style>body {font-size: 20px;background-color:rgb(125,175,150); color:rgb(240,240,240);}</style><div style="width:100%; margin: auto; text-align: center"><br/><br/><br/><br/>' +
         'You have successfull uploaded the podcast<br/><br/><br/><br/><div style="text-align: left;font-size:14px;"></div><br/><br/><br/><br/>' +
-        'See if it works: <br/><br/>' + data + '<br/><br/>'+
+        'See if it works: <br/><br/>' + JSON.stringify(data) + '<br/><br/>'+
         'Your browser does not support the audio element.</audio><br/><br/><a href="https://undercovercast.com/admin2.html">Make it live</a></div>');
     });
 });
