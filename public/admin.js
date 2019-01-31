@@ -58,6 +58,12 @@ getJSON('/test/json', function (data) {
     console.log('Something went wrong.');
 });
 
+getJSON('/s3-all', function (data) {
+    console.log(data);
+}, function (status) {
+    console.log('Something went wrong.');
+});
+
 upNewBtn.onclick = () => {
     document.getElementById('up-new-box').classList.add('expand-form-box');
     document.getElementById('up-ex-box').classList.remove('expand-form-box');
