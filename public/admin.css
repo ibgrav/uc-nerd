@@ -9,13 +9,14 @@ body {
 }
 
 .option-button {
-    width: 100%; 
-    background-color: rgb(205,105,155);
+    width: 100%;
+    background: rgb(205,105,155);
     text-align: center;
     line-height: 60px;
     font-size: 30px;
     margin: auto;
     border: none;
+    border-radius: 0;
     opacity: 0.8;
     color: rgba(25,40,120,0.7);
 }
