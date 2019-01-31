@@ -198,7 +198,7 @@ app.get('/admin', function (req, res) {
             '<div id="up-new-box" class="form-box">' +
             '<div id="name-suggestion"></div>' +
             '<input id="myFile" class="file-select-btn" type="file" name="myFile" required />' +
-            '<div id="myFileGo" class="file-up-btn option-button"></div></div>' +
+            '<div id="myFileGo" class="file-up-btn option-button">go</div></div>' +
             '<div id="up-ex-btn" class="option-button">old</div>' +
             '<div id="up-ex-box" class="form-box">' +
             '<div id="up-ex-select-in"></div>' +
