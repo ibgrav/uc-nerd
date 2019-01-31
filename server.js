@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const formidable = require('formidable');
 const aws = require('aws-sdk');
-aws.config.region = 'us-east-2';
+// aws.config.region = 'us-east-2';
 const S3_BUCKET = process.env.S3_BUCKET;
 console.log(S3_BUCKET);
 
