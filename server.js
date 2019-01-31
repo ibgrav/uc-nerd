@@ -9,7 +9,7 @@ const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET;
 
 const mongodb = require('mongodb');
-let uri = "mongodb://isaac:L337sauce@ds155490.mlab.com:55490/uc-nerd";
+let uri = "mongodb://ibgrav:L337sauce@ds155490.mlab.com:55490/uc-nerd";
 mongodb.MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
     if(err) console.log(err);
     if(err) throw err;
