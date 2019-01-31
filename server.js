@@ -141,33 +141,32 @@ app.get('/admin', function (req, res) {
             '<meta content="width=device-width, initial-scale=1" name="viewport" />' +
             '<link rel="stylesheet" media="all" href="admin.css">' +
             '</head><body>' +
-            '<div class="option-button-box admin-box">' +
-            '<div id="up-new-btn" class="option-button"><div class="button-title">New</div></div>' +
-            '<div id="up-ex-btn" class="option-button"><div class="button-title">Existing</div></div>' +
+            '<div id="up-new-btn" class="option-button">new</div>' +
             '<div id="up-new-box" class="form-box">' +
-            '<div id="name-suggestion"></div>' +
-            '<form class="file-up-form" action="/admin/send/pod" enctype="multipart/form-data" method="POST">' +
-            '<input class="file-select-btn" type="file" name="myFile" id="myFile" required />' +
-            '<input class="file-up-btn" type="submit" value="Upload" />' +
-            '</form></div>' +
+                '<div id="name-suggestion"></div>' +
+                '<form class="file-up-form" method="POST" action="/admin/send/pod" >' +
+                    '<input class="file-select-btn" type="file" name="myFile" id="myFile" required />' +
+                    '<input class="file-up-btn option-button" type="submit" value="go" />' +
+                '</form></div>' +
+            '<div id="up-ex-btn" class="option-button">old</div>' +
             '<div id="up-ex-box" class="form-box">' +
-            '<div id="up-ex-select-in"></div>' +
-            '<div id="up-ex-select-box">' +
-            '<input id="item-title" type="text" placeholder="Title" />' +
-            '<input id="item-desc" type="text" placeholder="Description" />' +
-            '<input id="item-pubDate" type="date" placeholder="Publication Date" />' +
-            '<input id="item-author" type="text" placeholder="Author" />' +
-            '<input id="item-link" type="text" placeholder="Link" />' +
-            '<input id="item-duration" type="text" placeholder="Duration 00:00:00" />' +
-            '<select id="item-explicit" placeholder="Explicit">' +
-            '<option value="" disabled="" selected="" hidden="hidden">Explicit?</option>' +
-            '<option value="yes">Yes</option>' +
-            '<option value="no">No</option>' +
-            '</select>' +
-            '<input id="item-guid" type="text" placeholder="guid (same as link)" />' +
-            '<input id="item-enclosure" type="text" placeholder="URL to mp3" />' +
-            '<div id="up-ex-submit-btn">SUBMIT</div>' +
-            '</div></div></div>' +
+                '<div id="up-ex-select-in"></div>' +
+                '<div id="up-ex-select-box">' +
+                    '<input id="item-title" type="text" placeholder="Title" />' +
+                    '<input id="item-desc" type="text" placeholder="Description" />' +
+                    '<input id="item-pubDate" type="text" placeholder="mm/dd/yyyy" />' +
+                    '<input id="item-author" type="text" placeholder="Author" />' +
+                    '<input id="item-link" type="text" placeholder="Link" />' +
+                    '<input id="item-duration" type="text" placeholder="Duration 00:00:00" />' +
+                    '<select id="item-explicit" placeholder="Explicit">' +
+                        '<option value="" disabled="" selected="" hidden="hidden">Explicit?</option>' +
+                        '<option value="yes">Yes</option>' +
+                        '<option value="no">No</option>' +
+                    '</select>' +
+                    '<input id="item-guid" type="text" placeholder="guid (same as link)" />' +
+                    '<input id="item-enclosure" type="text" placeholder="mp3 URL" />' +
+                    '<div id="up-ex-submit-btn" class="option-button">></div>' +
+               '</div></div>' +
             '<script type="text/javascript" src="admin.js"></script>' +
             '</body></html>');
         adminAuth = false;

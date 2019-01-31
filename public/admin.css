@@ -1,17 +1,7 @@
 body {
-    background-color: rgba(25,90,120,0.7);
-    overflow: hidden;
-}
-
-.admin-box {
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 80%;
-    height: 100%;
-    background-color: rgba(25,25,75,0.7);
-    padding: 0% 10%;
+    background-color: rgba(25,40,120,0.7);
+    margin: 5% 0 0 0;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 #pod-up-box {
@@ -19,72 +9,46 @@ body {
 }
 
 .option-button {
-    height: 250px;
-    width: 250px;
+    width: 100%; 
+    background-color: rgb(205,105,155);
     text-align: center;
-    margin: 25px auto;
-    border-radius: 15%;
-    background-color: rgba(200,205,255,0.5);
-    position: relative;
-    transition: all 0.5s;
-}
-
-.button-title {
-    position: absolute;
-    top: 44%;
-    width: 100%;
-    font-size: 2em;
+    line-height: 60px;
+    font-size: 30px;
+    margin: auto;
+    border: none;
+    opacity: 0.8;
+    color: rgba(25,40,120,0.7);
 }
 
 .option-button:hover {
     cursor: pointer;
-    transform: scale(1.1);
-}
-
-.option-button.keyframeBtnOut:hover {
-    cursor: default;
-    transform: scale(1);
-}
-
-.keyframeBtnOut {
-    animation: btnOut 1s forwards;
-}
-
-.keyframeBoxIn {
-    animation: boxIn 1s forwards;
 }
 
 .form-box {
     width: 100%;
-    left: 0;
-    height: 275px;
-    position: absolute;
-    transform: translateX(100%);
+    max-height: 0;
+    overflow: hidden;
+    text-align: center;
+    transition: all 1s;
 }
 
-#up-new-box {
-    top: 0;
-    background-color: darkcyan;
-}
-
-#up-ex-box {
-    height: calc(100% - 250px);
-    top: 300px;
-    background-color: darkkhaki;
+.form-box.expand-form-box {
+    max-height: 1000px;
+    margin-bottom: 20px;
 }
 
 .file-up-form {
-    width: 250px;
-    margin: 50px auto;
+    width: 100%;
+    margin: auto;
 }
 
 #name-suggestion {
-    width: 250px;
-    margin: 50px auto;
+    width: 100%;
+    margin: auto;
 }
 
 .file-select-btn {
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .ex-pod-select-box {
@@ -104,49 +68,18 @@ body {
     margin: 5px 0;
 }
 
-#up-ex-select-box {
-    width: 250px;
-    margin: auto;
-    transition: transform 0.5s;
-}
-
-#up-ex-submit-btn {
-    width: 50%;
-    margin: 30px auto;
-    text-align: center;
-    line-height: 40px;
-    background-color: rgba(0,0,0,0.6)
-}
-
-#up-ex-submit-btn:hover {
-    background-color: rgba(255,255,255,0.6);
-    color: black;
-    cursor: pointer;
-}
-
 #up-ex-select-box input {
-    margin: 5px 0;
+    margin: 10px auto;
+    display: block;
+    line-height: 60px;
+    text-align: center;
     width: 100%;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    font-size: 30px;
 }
 
-@keyframes btnOut {
-    0% {}
-    100% {transform: translateX(-1000px); background-color: rgba(0,205,255,0.5);}
-}
-
-@keyframes boxIn {
-    0% {}
-    100% {transform: translateX(0); background-color: rgba(100,105,255,1);}
-}
-
-@media screen and (max-width: 1000px){
-    .admin-box {
-        width: 80%;
-    }
-}
-@media screen and (max-width: 600px){
-    .admin-box {
-        width: 100%;
-        padding: 20% 0 0 0;
-    }
+#up-ex-select-box input::placeholder {
+    color: rgb(205,105,155);
 }

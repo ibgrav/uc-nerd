@@ -58,8 +58,54 @@ getJSON('/test/json', function (data) {
     console.log('Something went wrong.');
 });
 
-upNewBtn.addEventListener('click', animateIn);
-upExBtn.addEventListener('click', animateIn);
+upNewBtn.addEventListener('click', function () {
+    document.getElementById('up-new-box').classList.add('expand-form-box');
+    document.getElementById('up-ex-box').classList.remove('expand-form-box');
+});
+upExBtn.addEventListener('click', function () {
+    document.getElementById('up-new-box').classList.remove('expand-form-box');
+    document.getElementById('up-ex-box').classList.add('expand-form-box');
+});
+
+document.getElementById("myFile").onchange = () => {
+    const files = document.getElementById('myFile').files;
+    const file = files[0];
+    if (file == null) {
+        return alert('No file selected.');
+    }
+    getSignedRequest(file);
+};
+
+function getSignedRequest(file) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                uploadFile(file, response.signedRequest, response.url);
+            } else {
+                alert('Could not get signed URL.');
+            }
+        }
+    };
+    xhr.send();
+}
+
+function uploadFile(file, signedRequest, url) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', signedRequest);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log(url);
+            } else {
+                alert('Could not upload file.');
+            }
+        }
+    };
+    xhr.send(file);
+}
 
 upExSubmit.addEventListener('click', function () {
     var item = document.getElementById('ex-pod-select').value;
@@ -78,25 +124,3 @@ upExSubmit.addEventListener('click', function () {
         author + '&link=' + link + '&duration=' + duration + '&explicit=' +
         explicit + '&guid=' + guid + '&enclosure=' + enclosure);
 });
-
-function animateIn() {
-    this.classList.add('keyframeBtnOut');
-    if (this == upNewBtn) {
-        upNewBox.classList.add('keyframeBoxIn');
-    }
-    if (this == upExBtn) {
-        upExBox.classList.add('keyframeBoxIn');
-    }
-}
-
-var _paq = window._paq || [];
-/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-_paq.push(['trackPageView']);
-_paq.push(['enableLinkTracking']);
-(function() {
-var u="//159.203.70.216/";
-_paq.push(['setTrackerUrl', u+'matomo.php']);
-_paq.push(['setSiteId', '1']);
-var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-})();
