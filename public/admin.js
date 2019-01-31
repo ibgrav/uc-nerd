@@ -77,6 +77,7 @@ function uploadFile(file, signedRequest, url) {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 console.log(url);
+                document.getElementById("myFileGo").innerHTML = '<audio controls src="'+ url +'"></audio>';
             } else {
                 alert('Could not upload file.');
             }
