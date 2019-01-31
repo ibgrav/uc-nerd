@@ -30,34 +30,6 @@ var getJSON = function (url, successHandler, errorHandler) {
     xhr.send();
 };
 
-getJSON('/test/json', function (data) {
-    console.log('Get success: ', data);
-    testPod = data;
-
-    var updateHTML = '';
-    updateHTML = '<div class="ex-pod-select-box"><select id="ex-pod-select"><option value="" disabled="" selected="" hidden="hidden">Select Podcast to Edit:</option>';
-
-    for (var i = 0; i < testPod.item.length; i++) {
-        updateHTML += '<option value="' + i + '">' + i + ': ' + testPod.item[i].title + '</option>';
-    }
-
-    updateHTML += '</select></div>';
-
-    document.getElementById('up-ex-select-in').innerHTML += updateHTML;
-
-    var exPodSelect = document.getElementById('ex-pod-select');
-    exPodSelect.addEventListener('change', function () {
-        this.classList.add('select-move-up');
-        document.getElementById('up-ex-select-box').classList.add('select-move-up');
-    });
-
-    var nameSuggestion = 'Should probably be titled: ' + testPod.item.length + '.mp3';
-
-    document.getElementById('name-suggestion').innerHTML = nameSuggestion;
-}, function (status) {
-    console.log('Something went wrong.');
-});
-
 getJSON('/s3-all', function (data) {
     console.log('Get success: ', data);
 }, function (status) {
@@ -73,7 +45,7 @@ upExBtn.onclick = () => {
     document.getElementById('up-ex-box').classList.add('expand-form-box');
 };
 
-document.getElementById("myFile").onclick = () => {
+document.getElementById("myFileGo").onclick = () => {
     const files = document.getElementById('myFile').files;
     const file = files[0];
     if (file == null) {

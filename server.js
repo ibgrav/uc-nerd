@@ -197,10 +197,8 @@ app.get('/admin', function (req, res) {
             '<div id="up-new-btn" class="option-button">new</div>' +
             '<div id="up-new-box" class="form-box">' +
             '<div id="name-suggestion"></div>' +
-            '<form class="file-up-form" method="POST" action="/admin/send/pod" >' +
-            '<input class="file-select-btn" type="file" name="myFile" id="myFile" required />' +
-            '<input class="file-up-btn option-button" type="submit" value="go" />' +
-            '</form></div>' +
+            '<input id="myFile" class="file-select-btn" type="file" name="myFile" required />' +
+            '<input id="myFileGo" class="file-up-btn option-button" type="submit" value="go" /></div>' +
             '<div id="up-ex-btn" class="option-button">old</div>' +
             '<div id="up-ex-box" class="form-box">' +
             '<div id="up-ex-select-in"></div>' +

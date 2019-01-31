@@ -20,6 +20,10 @@ body {
     color: rgba(25,40,120,0.7);
 }
 
+#name-suggestion {
+    color: rgb(205,105,155);
+}
+
 .option-button:hover {
     cursor: pointer;
 }
