@@ -50,8 +50,10 @@ app.get('/test/json', function (req, res, next) {
 });
 
 app.get('/s3-all', function (req, res, next) {
+    const s3 = new aws.S3();
+
     var params = {
-        Bucket: 'uc-nerd-pod',
+        Bucket: S3_BUCKET,
         Delimiter: '',
         Prefix: 's/5469b2f5b4292d22522e84e0/ms.files'
     }
