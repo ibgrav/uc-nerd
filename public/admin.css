@@ -55,6 +55,8 @@ body {
 
 .file-select-btn {
     margin: 20px 0;
+    border-radius: 0;
+
     color: rgb(205,105,155);
 }
 
