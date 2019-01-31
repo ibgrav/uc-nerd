@@ -227,7 +227,7 @@ app.get('/admin', function (req, res) {
             '<div id="up-ex-submit-btn" class="option-button">></div>' +
             '</div></div>' +
             '<script type="text/javascript" src="admin.js"></script>' +
-            '<script>console.log("'+ podChannel +'")</script>' +
+            '<script>console.log("podChannel: '+ podChannel +'")</script>' +
             '</body></html>');
         adminAuth = false;
     } else {
