@@ -67,11 +67,11 @@ getJSON('/s3-all', function (data) {
 upNewBtn.onclick = () => {
     document.getElementById('up-new-box').classList.add('expand-form-box');
     document.getElementById('up-ex-box').classList.remove('expand-form-box');
-});
+};
 upExBtn.onclick = () => {
     document.getElementById('up-new-box').classList.remove('expand-form-box');
     document.getElementById('up-ex-box').classList.add('expand-form-box');
-});
+};
 
 document.getElementById("myFile").onclick = () => {
     const files = document.getElementById('myFile').files;
