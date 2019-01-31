@@ -22,6 +22,24 @@ function rAnd(data) {
     return data.replace('&', '&amp;');
 }
 
+var allKeys = [];
+
+function listAllKeys(token, cb) {
+    var opts = {
+        Bucket: s3bucket
+    };
+    if (token) opts.ContinuationToken = token;
+
+    s3.listObjectsV2(opts, function (err, data) {
+        allKeys = allKeys.concat(data.Contents);
+
+        if (data.IsTruncated)
+            listAllKeys(data.NextContinuationToken, cb);
+        else
+            cb();
+    });
+}
+
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/index.html'));
     console.log('sending from index.js');
@@ -31,6 +49,22 @@ app.get('/test/json', function (req, res, next) {
     res.json(require('./public/test.json'));
 });
 
+app.get('/s3-all', function (req, res, next) {
+    var params = {
+        Bucket: 'uc-nerd-pod',
+        Delimiter: '',
+        Prefix: 's/5469b2f5b4292d22522e84e0/ms.files'
+    }
+
+    s3.listObjects(params, function (err, data) {
+        if (err) throw err;
+        console.log(data);
+        res.send('<style>body {font-size: 20px;background-color:rgb(125,175,150); color:rgb(240,240,240);}</style><div style="width:100%; margin: auto; text-align: center"><br/><br/><br/><br/>' +
+        'You have successfull uploaded the podcast<br/><br/><br/><br/><div style="text-align: left;font-size:14px;"></div><br/><br/><br/><br/>' +
+        'See if it works: <br/><br/>' + data + '<br/><br/>'+
+        'Your browser does not support the audio element.</audio><br/><br/><a href="https://undercovercast.com/admin2.html">Make it live</a></div>');
+    });
+});
 
 app.get('/sign-s3', (req, res) => {
     const s3 = new aws.S3();
@@ -142,30 +176,30 @@ app.get('/admin', function (req, res) {
             '</head><body>' +
             '<div id="up-new-btn" class="option-button">new</div>' +
             '<div id="up-new-box" class="form-box">' +
-                '<div id="name-suggestion"></div>' +
-                '<form class="file-up-form" method="POST" action="/admin/send/pod" >' +
-                    '<input class="file-select-btn" type="file" name="myFile" id="myFile" required />' +
-                    '<input class="file-up-btn option-button" type="submit" value="go" />' +
-                '</form></div>' +
+            '<div id="name-suggestion"></div>' +
+            '<form class="file-up-form" method="POST" action="/admin/send/pod" >' +
+            '<input class="file-select-btn" type="file" name="myFile" id="myFile" required />' +
+            '<input class="file-up-btn option-button" type="submit" value="go" />' +
+            '</form></div>' +
             '<div id="up-ex-btn" class="option-button">old</div>' +
             '<div id="up-ex-box" class="form-box">' +
-                '<div id="up-ex-select-in"></div>' +
-                '<div id="up-ex-select-box">' +
-                    '<input id="item-title" type="text" placeholder="Title" />' +
-                    '<input id="item-desc" type="text" placeholder="Description" />' +
-                    '<input id="item-pubDate" type="text" placeholder="mm/dd/yyyy" />' +
-                    '<input id="item-author" type="text" placeholder="Author" />' +
-                    '<input id="item-link" type="text" placeholder="Link" />' +
-                    '<input id="item-duration" type="text" placeholder="Duration 00:00:00" />' +
-                    '<select id="item-explicit" placeholder="Explicit">' +
-                        '<option value="" disabled="" selected="" hidden="hidden">Explicit?</option>' +
-                        '<option value="yes">Yes</option>' +
-                        '<option value="no">No</option>' +
-                    '</select>' +
-                    '<input id="item-guid" type="text" placeholder="guid (same as link)" />' +
-                    '<input id="item-enclosure" type="text" placeholder="mp3 URL" />' +
-                    '<div id="up-ex-submit-btn" class="option-button">></div>' +
-               '</div></div>' +
+            '<div id="up-ex-select-in"></div>' +
+            '<div id="up-ex-select-box">' +
+            '<input id="item-title" type="text" placeholder="Title" />' +
+            '<input id="item-desc" type="text" placeholder="Description" />' +
+            '<input id="item-pubDate" type="text" placeholder="mm/dd/yyyy" />' +
+            '<input id="item-author" type="text" placeholder="Author" />' +
+            '<input id="item-link" type="text" placeholder="Link" />' +
+            '<input id="item-duration" type="text" placeholder="Duration 00:00:00" />' +
+            '<select id="item-explicit" placeholder="Explicit">' +
+            '<option value="" disabled="" selected="" hidden="hidden">Explicit?</option>' +
+            '<option value="yes">Yes</option>' +
+            '<option value="no">No</option>' +
+            '</select>' +
+            '<input id="item-guid" type="text" placeholder="guid (same as link)" />' +
+            '<input id="item-enclosure" type="text" placeholder="mp3 URL" />' +
+            '<div id="up-ex-submit-btn" class="option-button">></div>' +
+            '</div></div>' +
             '<script type="text/javascript" src="admin.js"></script>' +
             '</body></html>');
         adminAuth = false;
@@ -175,11 +209,11 @@ app.get('/admin', function (req, res) {
 });
 
 app.post('/admin/send/pod', function (req, res) {
-    
-    res.send('<style>body {font-size: 20px;background-color:rgb(125,175,150); color:rgb(240,240,240);}</style><div style="width:100%; margin: auto; text-align: center"><br/><br/><br/><br/>' +
-        'You have successfull uploaded the podcast<br/><br/><br/><br/><div style="text-align: left;font-size:14px;"></div><br/><br/><br/><br/>' +
-        'See if it works: <br/><br/><audio controls><source src="https://undercovercast.com/pod/' + newFileName + '" type="audio/ogg">' +
-        'Your browser does not support the audio element.</audio><br/><br/><a href="https://undercovercast.com/admin2.html">Make it live</a></div>');
+
+    // res.send('<style>body {font-size: 20px;background-color:rgb(125,175,150); color:rgb(240,240,240);}</style><div style="width:100%; margin: auto; text-align: center"><br/><br/><br/><br/>' +
+    //     'You have successfull uploaded the podcast<br/><br/><br/><br/><div style="text-align: left;font-size:14px;"></div><br/><br/><br/><br/>' +
+    //     'See if it works: <br/><br/><audio controls><source src="https://undercovercast.com/pod/' + newFileName + '" type="audio/ogg">' +
+    //     'Your browser does not support the audio element.</audio><br/><br/><a href="https://undercovercast.com/admin2.html">Make it live</a></div>');
 
 });
 

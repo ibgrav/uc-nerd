@@ -58,16 +58,16 @@ getJSON('/test/json', function (data) {
     console.log('Something went wrong.');
 });
 
-upNewBtn.addEventListener('click', function () {
+upNewBtn.onclick = () => {
     document.getElementById('up-new-box').classList.add('expand-form-box');
     document.getElementById('up-ex-box').classList.remove('expand-form-box');
 });
-upExBtn.addEventListener('click', function () {
+upExBtn.onclick = () => {
     document.getElementById('up-new-box').classList.remove('expand-form-box');
     document.getElementById('up-ex-box').classList.add('expand-form-box');
 });
 
-document.getElementById("myFile").onchange = () => {
+document.getElementById("myFile").onclick = () => {
     const files = document.getElementById('myFile').files;
     const file = files[0];
     if (file == null) {
