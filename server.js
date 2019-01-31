@@ -21,6 +21,7 @@ mongodb.MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client
         podChannel = items;
         items.forEach(function (item) {
             console.log(item);
+            podChannel += item;
         });
         client.close();
     });
