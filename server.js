@@ -54,7 +54,7 @@ function handleError(res, reason, message, code) {
 var db;
 
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:8080/test", function (err, client) {
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, client) {
   if (err) {
     console.log(err);
     process.exit(1);
