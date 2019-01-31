@@ -58,7 +58,7 @@ getJSON('/test/json', function (data) {
     console.log('Something went wrong.');
 });
 
-getJSON('/s3-all', function (data) {
+getJSON('/s3-all'), function (data) {
     console.log(data);
 }, function (status) {
     console.log('Something went wrong.');
