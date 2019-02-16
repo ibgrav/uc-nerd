@@ -1,35 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
-    <channel>
-        <title>Undercover Nerd</title>
-        <link>https://undercovercast.com/</link>
-        <language>en-us</language>
-        <itunes:subtitle>Take a journey</itunes:subtitle>
-        <itunes:author>Scot</itunes:author>
-        <itunes:summary>
-            Hey there! I'm a big boy in a small world; join me and discover.
-        </itunes:summary>
-        <description>
-            Hey there. I'm a big boy in a small world; join me and discover.
-        </description>
-        <itunes:owner>
-            <itunes:name>Scot</itunes:name>
-            <itunes:email>scot@undercovercast.com</itunes:email>
-        </itunes:owner>
-        <itunes:explicit>no</itunes:explicit>
-        <itunes:image href="https://undercovercast.com/cover.png" />
-        <itunes:category text="Society &amp; Culture" />
-        <item>
-            <title>Teaser</title>
-            <itunes:summary>Welcome to my podcast!</itunes:summary>
-            <description>Welcome to my podcast!</description>
-            <link>https://undercovercast.com/?episode=0</link>
-            <enclosure url="https://undercovercast.com/pod/0.mp3"
-                length="1024" />
-            <pubDate>Fri, 11 Jan 2019 08:00:00 +0000</pubDate>
-            <itunes:author>Scot</itunes:author>
-            <itunes:duration>00:02:53</itunes:duration>
-            <itunes:explicit>no</itunes:explicit>
-            <guid>https://undercovercast.com/?episode=0</guid>
-        </item>
-    </channel>
+   <channel>
+      <title>Undercover Nerd</title>
+      <link>https://undercovercast.com</link>
+      <language>en-us</language>
+      <itunes:subtitle>Take a journey</itunes:subtitle>
+      <itunes:author>Scot</itunes:author>
+      <itunes:summary>Hey there! I'm a big boy in a small world; join me and discover.</itunes:summary>
+      <description>Hey there! I'm a big boy in a small world; join me and discover.</description>
+      <itunes:owner>
+         <itunes:name>Scot</itunes:name>
+         <itunes:email>scot@undercovercast.com</itunes:email>
+      </itunes:owner>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://undercovercast.com/cover.png" />
+      <itunes:category text="Society &amp; Culture" />
+      <item>
+         <title>Teaser</title>
+         <itunes:summary>Welcome to my podcast!</itunes:summary>
+         <description>Welcome to my podcast!</description>
+         <link>https://undercovercast.com/?episode=0</link>
+         <enclosure url="https://s3.amazonaws.com/uc-nerd-pod/0.mp3" length="1024" />
+         <pubDate>Fri, 11 Jan 2019 08:00:00 +0000</pubDate>
+         <itunes:author>Scot</itunes:author>
+         <itunes:duration>00:02:53</itunes:duration>
+         <itunes:explicit>no</itunes:explicit>
+         <guid>https://undercovercast.com/?episode=0</guid>
+      </item>
+      <item>
+         <title>Episode 1</title>
+         <itunes:summary>Welcome to my first episode!</itunes:summary>
+         <description>
+            Welcome to the first episode of Undercover Nerd! In this episode I talk about sorting ourselves into groups, and what makes it so difficult to change our minds on issues.
+            <br />
+            Shoot me an email at
+            <a href="mailto:scot@undercovercast.com">scot@undercovercast.com</a>
+            with your comments and questions!
+            <br />
+            Here are the links to the articles I mentioned:
+            <br />
+            <a href="https://www.newyorker.com/magazine/2017/02/27/why-facts-dont-change-our-minds">Elizabeth
+                    Kolbert's article for the New Yorker</a>
+            <a href="https://www.vox.com/science-and-health/2016/12/28/14088992/brain-study-change-minds">Brian
+                    Resnick's article for Vox</a>
+            <a href="https://www.nytimes.com/2017/05/27/opinion/sunday/youre-not-going-to-change-your-mind.html">An
+                    article in the New York Times I used as reference material.</a>
+            <br />
+            Enjoy the show!
+         </description>
+         <link>https://undercovercast.com/?episode=1</link>
+         <enclosure url="https://s3.amazonaws.com/uc-nerd-pod/1.mp3" length="1024" />
+         <pubDate>Mon, 18 Feb 2019 08:00:00 +0000</pubDate>
+         <itunes:author>Scot</itunes:author>
+         <itunes:duration>00:21:35</itunes:duration>
+         <itunes:explicit>no</itunes:explicit>
+         <guid>https://undercovercast.com/?episode=1</guid>
+      </item>
+   </channel>
 </rss>
