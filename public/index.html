@@ -33,7 +33,7 @@
             position: fixed;
             bottom: 0;
             left: 0;
-            stroke: rgb(20,0,0);
+            /* stroke: rgb(20,0,0); */
             stroke-width: 5px;
             fill: rgba(195,155,55,0.2);
         }
@@ -50,16 +50,19 @@
             margin: 20px 0 10px 0;
         }
 
+        #pod-play {
+            width: 60px;
+            height: 60px;
+            margin: 30px;
+        }
+
         .pod-skip {
             display: inline;
         }
 
-        #pod-forwards {
-            margin-left: 100px;
-        }
-
         #pod-time-current, #pod-time-end {
             display: inline;
+            margin: 0 30px;
         }
 
         #pod-description {
@@ -95,6 +98,9 @@
             #pod-box {
                 width: 90%;
                 margin: 30px 5%;
+            }
+            #pod-play {
+                margin-top: 0;
             }
         }
 
@@ -206,22 +212,27 @@
 
     <div id="pod-box">
         
-            <div id="pod-play">Play</div>
+            <!-- <div id="pod-play">Play</div> -->
 
 
         <div class="pod-skip" id="pod-back">- 30s</div>
         
 
-        <!-- <svg id="pod-play" viewBox="0 0 41.999 41.999" xml:space="preserve">
-                <path d="M36.068,20.176l-29-20C6.761-0.035,6.363-0.057,6.035,0.114C5.706,0.287,5.5,0.627,5.5,0.999v40
-	c0,0.372,0.206,0.713,0.535,0.886c0.146,0.076,0.306,0.114,0.465,0.114c0.199,0,0.397-0.06,0.568-0.177l29-20
-	c0.271-0.187,0.432-0.494,0.432-0.823S36.338,20.363,36.068,20.176z M7.5,39.095V2.904l26.239,18.096L7.5,39.095z"/>
-        </svg> -->
+        <svg id="pod-play" viewBox="0 0 60 60" xml:space="preserve">
+                <g>
+                        <path d="M45.563,29.174l-22-15c-0.307-0.208-0.703-0.231-1.031-0.058C22.205,14.289,22,14.629,22,15v30
+                            c0,0.371,0.205,0.711,0.533,0.884C22.679,45.962,22.84,46,23,46c0.197,0,0.394-0.059,0.563-0.174l22-15
+                            C45.836,30.64,46,30.331,46,30S45.836,29.36,45.563,29.174z M24,43.107V16.893L43.225,30L24,43.107z"/>
+                        <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30
+                            S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z"/>
+                    </g>
+                    
+        </svg>
 
         <div class="pod-skip" id="pod-forwards">+ 30s</div>
 
         <div id="pod-title">Try and Change My Mind</div>
-        <div id="pod-time-current">00:00</div> - <div id="pod-time-end">21:35</div>
+        <div id="pod-time-current">00:00</div><div id="pod-time-end">21:35</div>
         <div id="pod-description">
             Welcome to the first episode of Undercover Nerd! In this episode I talk about sorting ourselves into
             groups, and what makes it so difficult to change our minds on issues.
@@ -249,6 +260,13 @@
     </audio>
 
     <script>
+        var playBtn = document.querySelector('#pod-play');
+        var player = document.querySelector('#pod-player');
+        var podTime = document.querySelector('#pod-time-current');
+        var totalTime = document.querySelector('#pod-player').duration;
+        
+        document.querySelector('#pod-time-end').innerHTML = document.querySelector('#pod-player').duration;
+
         var getJSON = function (url, successHandler, errorHandler) {
             var xhr = typeof XMLHttpRequest != 'undefined' ?
                 new XMLHttpRequest() :
@@ -269,6 +287,14 @@
             };
             xhr.send();
         };
+
+        playBtn.addEventListener('click', function(){
+            document.querySelector('#pod-player').play();
+        });
+
+        player.addEventListener('change', function(){
+            podTime.innerHTML = player.currentTime;
+        });
 
         getJSON('/test/json', function (data) {
             console.log('Get success: ', data);
