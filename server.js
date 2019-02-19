@@ -36,7 +36,7 @@ var testPod = testData;
 
 var adminAuth = false;
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 function rAnd(data) {
     return data.replace('&', '&amp;');
