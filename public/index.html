@@ -81,17 +81,55 @@
         }
 
         #pod-description {
+            max-height: 0;
+            overflow: hidden;
             font-size: 18px;
             text-align: left;
             margin: 20px 0;
+            transition: all 1s;
         }
 
-        #pod-play:hover, #pod-pause:hover, .pod-skip:hover {
+        #pod-expand {
+            width: 40px;
+            margin: 20px auto;
+            transition: all 1s;
+        }
+
+        #pod-box.expand #pod-description {
+            max-height: 500px;
+        }
+
+        #pod-box.expand #pod-expand {
+            transform: scaleY(-1);
+        }
+
+        #pod-play:hover, #pod-pause:hover, .pod-skip:hover, #pod-expand:hover, .episode:hover {
             cursor: pointer;
+        }
+
+        .episode:hover {
+            padding: 20px 0;
         }
 
         #pod-play:active, #pod-pause:active, .pod-skip:active {
             /* fill: rgb(125,125,250); */
+        }
+
+        .episode {
+            display: flex;
+            border-bottom: 1px solid black;
+            margin: 10px 0;
+            padding: 10px 0;
+            transition: all 0.5s;
+            justify-content: space-between;
+        }
+
+        .episode-number {
+            float: left;
+        }
+
+        .episode-date {
+            float: right;
         }
 
         @media screen and (max-width: 900px) {
@@ -252,8 +290,24 @@
         <div id="pod-title"></div>
         <div id="pod-time-current"></div>
         <div id="pod-time-end"></div>
-        <div id="pod-expand">...</div>
+        <div id="pod-expand">
+            <svg version="1.1" viewBox="0 0 129 129">
+                <path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"/>
+            </svg>
+        </div>
         <div id="pod-description"></div>
+        <div id="pod-episodes">
+            <div class="episode" data-e="0">
+                <div class="episode-number">0</div>
+                <div class="episode-title">Teaser</div>
+                <div class="episode-date">02-15-2019</div>
+            </div>
+            <div class="episode" data-e="1">
+                <div class="episode-number">1</div>
+                <div class="episode-title">Try and Change My Mind</div>
+                <div class="episode-date">06-12-2019</div>
+            </div>
+        </div>
     </div>
 
     <audio id="pod-player" src="" type="audio/mpeg"></audio>
@@ -266,6 +320,7 @@
         var podTimeEnd = document.querySelector('#pod-time-end');
         var podForward = document.querySelector('#pod-forwards');
         var podBackward = document.querySelector('#pod-back');
+        var podExpand = document.querySelector('#pod-expand');
 
         var podTitle = document.querySelector('#pod-title');
         var podDescription = document.querySelector('#pod-description');
@@ -350,6 +405,14 @@
 
             podBackward.addEventListener('click', function () {
                 player.currentTime = player.currentTime - 30;
+            });
+
+            podExpand.addEventListener('click', function () {
+                podExpand.parentElement.classList.toggle('expand');
+            });
+
+            document.getElementsByClassName('episodes').addEventListener('click', function(){
+
             });
         }
 
