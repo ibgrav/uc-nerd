@@ -42,9 +42,17 @@
             transition: all 1s;
         }
 
+        #up-new-box.form-box.expand-form-box {
+            max-height: 500px;
+        }
+
         .form-box.expand-form-box {
-            max-height: 1000px;
+            max-height: 60px;
             margin-bottom: 20px;
+        }
+
+        .form-box.expand-form-box.select-full-expand {
+            max-height: 1000px;
         }
 
         .file-up-form {
@@ -54,7 +62,7 @@
 
         #name-suggestion {
             width: 100%;
-            margin: auto;
+            margin: 10px auto;
         }
 
         .file-select-btn {
@@ -63,15 +71,11 @@
 
         .ex-pod-select-box {
             width: 250px;
-            margin: 100px auto 20px auto;
+            margin: 20px auto 20px auto;
         }
 
         #ex-pod-select {
             transition: transform 0.5s;
-        }
-
-        .select-move-up {
-            transform: translateY(-40px);
         }
 
         #item-explicit {
@@ -170,8 +174,7 @@
             
             var exPodSelect = document.getElementById('ex-pod-select');
             exPodSelect.addEventListener('change', function(){
-                this.classList.add('select-move-up');
-                document.getElementById('up-ex-select-box').classList.add('select-move-up');
+                document.getElementById('up-ex-box').classList.add('select-full-expand');
             });
 
             var nameSuggestion = 'Should probably be titled: '+ jData.item.length + '.mp3';

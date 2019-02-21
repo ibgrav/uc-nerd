@@ -115,7 +115,7 @@
             /* fill: rgb(125,125,250); */
         }
 
-        .episode {
+        .episode, .episode-header {
             display: flex;
             border-bottom: 1px solid black;
             margin: 10px 0;
@@ -135,6 +135,7 @@
         .episode.episodeClick {
             font-weight: bold;
             padding: 20px 0;
+            border-bottom: 3px solid black;
         }
 
         @media screen and (max-width: 900px) {
@@ -156,9 +157,13 @@
             #pod-box {
                 width: 90%;
                 margin: 30px 5%;
+                font-size: 20px;
             }
-            #pod-play {
+            #pod-play, #pod-pause {
                 margin-top: 0;
+            }
+            .episode-date {
+                white-space: nowrap;
             }
         }
 
@@ -372,7 +377,7 @@
                 episode = urlVars.e;
             } else episode = jData.item.length - 1
 
-            var episodeList = '';
+            var episodeList = '<div class="episode-header">Episodes</div>';
             var episodeDate = '';
             for(i=0; i < jData.item.length; i++){
                 episodeDate = new Date(jData.item[i].pubDate);

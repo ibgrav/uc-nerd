@@ -6,26 +6,28 @@ const path = require('path');
 const fs = require('fs');
 const aws = require('aws-sdk');
 // aws.config.region = 'us-east-2';
-const S3_BUCKET = process.env.S3_BUCKET;
-var podChannel = {};
+const S3_BUCKET = process.env.S3_BUCKET || 'uc-nerd-pod';
+// var podChannel = {};
 
-const mongodb = require('mongodb');
-let uri = "mongodb://ibgrav:L337sauce@ds155490.mlab.com:55490/uc-nerd";
-mongodb.MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
-    if(err) console.log(err);
-    if(err) throw err;
-    let db = client.db('uc-nerd');
-    let channel = db.collection('channel');
+console.log(process.env);
+
+// const mongodb = require('mongodb');
+// let uri = "mongodb://ibgrav:L337sauce@ds155490.mlab.com:55490/uc-nerd";
+// mongodb.MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
+//     if(err) console.log(err);
+//     if(err) throw err;
+//     let db = client.db('uc-nerd');
+//     let channel = db.collection('channel');
     
-    channel.find({}).toArray(function(err, items) {
-        podChannel = items;
-        items.forEach(function (item) {
-            console.log(item);
-            podChannel += item;
-        });
-        client.close();
-    });
-});
+//     channel.find({}).toArray(function(err, items) {
+//         podChannel = items;
+//         items.forEach(function (item) {
+//             console.log(item);
+//             podChannel += item;
+//         });
+//         client.close();
+//     });
+// });
  
 
 const podData = require('./public/pod.json');
@@ -42,38 +44,38 @@ function rAnd(data) {
     return data.replace('&', '&amp;');
 }
 
-var allKeys = [];
+// var allKeys = [];
 
-function listAllKeys(token, cb) {
-    var opts = {
-        Bucket: s3bucket
-    };
-    if (token) opts.ContinuationToken = token;
+// function listAllKeys(token, cb) {
+//     var opts = {
+//         Bucket: s3bucket
+//     };
+//     if (token) opts.ContinuationToken = token;
 
-    s3.listObjectsV2(opts, function (err, data) {
-        allKeys = allKeys.concat(data.Contents);
+//     s3.listObjectsV2(opts, function (err, data) {
+//         allKeys = allKeys.concat(data.Contents);
 
-        if (data.IsTruncated)
-            listAllKeys(data.NextContinuationToken, cb);
-        else
-            cb();
-    });
-}
+//         if (data.IsTruncated)
+//             listAllKeys(data.NextContinuationToken, cb);
+//         else
+//             cb();
+//     });
+// }
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/public/index.html'));
-    console.log('sending from index.js');
+    console.log('sending from server.js');
 });
 
-app.get("/db/channel", function (req, res) {
-    db.collection("channel").find({}).toArray(function (err, docs) {
-        if (err) {
-            handleError(res, err.message, "Failed to get contacts.");
-        } else {
-            res.status(200).json(docs);
-        }
-    });
-});
+// app.get("/db/channel", function (req, res) {
+//     db.collection("channel").find({}).toArray(function (err, docs) {
+//         if (err) {
+//             handleError(res, err.message, "Failed to get contacts.");
+//         } else {
+//             res.status(200).json(docs);
+//         }
+//     });
+// });
 
 app.get('/test/json', function (req, res, next) {
     res.json(require('./public/test.json'));
@@ -228,7 +230,6 @@ app.get('/admin', function (req, res) {
             '<div id="up-ex-submit-btn" class="option-button">></div>' +
             '</div></div>' +
             '<script type="text/javascript" src="admin.js"></script>' +
-            '<script>console.log("podChannel: '+ podChannel +'")</script>' +
             '</body></html>');
         adminAuth = false;
     } else {
@@ -238,10 +239,10 @@ app.get('/admin', function (req, res) {
 
 app.post('/admin/send/pod', function (req, res) {
 
-    // res.send('<style>body {font-size: 20px;background-color:rgb(125,175,150); color:rgb(240,240,240);}</style><div style="width:100%; margin: auto; text-align: center"><br/><br/><br/><br/>' +
-    //     'You have successfull uploaded the podcast<br/><br/><br/><br/><div style="text-align: left;font-size:14px;"></div><br/><br/><br/><br/>' +
-    //     'See if it works: <br/><br/><audio controls><source src="https://undercovercast.com/pod/' + newFileName + '" type="audio/ogg">' +
-    //     'Your browser does not support the audio element.</audio><br/><br/><a href="https://undercovercast.com/admin2.html">Make it live</a></div>');
+    res.send('<style>body {font-size: 20px;background-color:rgb(125,175,150); color:rgb(240,240,240);}</style><div style="width:100%; margin: auto; text-align: center"><br/><br/><br/><br/>' +
+        'You have successfull uploaded the podcast<br/><br/><br/><br/><div style="text-align: left;font-size:14px;"></div><br/><br/><br/><br/>' +
+        'See if it works: <br/><br/><audio controls><source src="https://undercovercast.com/pod/' + newFileName + '" type="audio/ogg">' +
+        'Your browser does not support the audio element.</audio><br/><br/><a href="https://undercovercast.com/admin2.html">Make it live</a></div>');
 
 });
 
