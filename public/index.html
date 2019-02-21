@@ -56,6 +56,21 @@
             margin: 30px;
         }
 
+        #pod-pause {
+            display: none;
+            width: 60px;
+            height: 60px;
+            margin: 30px;
+        }
+
+        #pod-box.play-clicked #pod-play {
+            display: none;
+        }
+
+        #pod-box.play-clicked #pod-pause {
+            display: inline-block;
+        }
+
         .pod-skip {
             display: inline;
         }
@@ -71,12 +86,12 @@
             margin: 20px 0;
         }
 
-        #pod-play:hover, .pod-skip:hover {
+        #pod-play:hover, #pod-pause:hover, .pod-skip:hover {
             cursor: pointer;
         }
 
-        #pod-play:active, .pod-skip:active {
-            fill: rgb(125,125,250);
+        #pod-play:active, #pod-pause:active, .pod-skip:active {
+            /* fill: rgb(125,125,250); */
         }
 
         @media screen and (max-width: 900px) {
@@ -211,61 +226,61 @@
     <div id="page-title">UNDERCOVER NERD</div>
 
     <div id="pod-box">
-        
-            <!-- <div id="pod-play">Play</div> -->
-
-
         <div class="pod-skip" id="pod-back">- 30s</div>
-        
 
         <svg id="pod-play" viewBox="0 0 60 60" xml:space="preserve">
-                <g>
-                        <path d="M45.563,29.174l-22-15c-0.307-0.208-0.703-0.231-1.031-0.058C22.205,14.289,22,14.629,22,15v30
+            <g>
+                <path d="M45.563,29.174l-22-15c-0.307-0.208-0.703-0.231-1.031-0.058C22.205,14.289,22,14.629,22,15v30
                             c0,0.371,0.205,0.711,0.533,0.884C22.679,45.962,22.84,46,23,46c0.197,0,0.394-0.059,0.563-0.174l22-15
-                            C45.836,30.64,46,30.331,46,30S45.836,29.36,45.563,29.174z M24,43.107V16.893L43.225,30L24,43.107z"/>
-                        <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30
-                            S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z"/>
-                    </g>
-                    
+                            C45.836,30.64,46,30.331,46,30S45.836,29.36,45.563,29.174z M24,43.107V16.893L43.225,30L24,43.107z" />
+                <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30
+                            S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z" />
+            </g>
+        </svg>
+
+        <svg id="pod-pause" viewBox="0 0 60 60" xml:space="preserve">
+            <g>
+                <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30
+                    S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z" />
+                <path d="M33,46h8V14h-8V46z M35,16h4v28h-4V16z" />
+                <path d="M19,46h8V14h-8V46z M21,16h4v28h-4V16z" />
+            </g>
         </svg>
 
         <div class="pod-skip" id="pod-forwards">+ 30s</div>
 
-        <div id="pod-title">Try and Change My Mind</div>
-        <div id="pod-time-current">00:00</div><div id="pod-time-end">21:35</div>
-        <div id="pod-description">
-            Welcome to the first episode of Undercover Nerd! In this episode I talk about sorting ourselves into
-            groups, and what makes it so difficult to change our minds on issues.
-            <br /><br />
-            Shoot me an email at
-            <a href="mailto:scot@undercovercast.com">scot@undercovercast.com</a>
-            with your comments and questions!
-            <br /><br />
-            Here are the links to the articles I mentioned:
-            <br /><br />
-            <a href="https://www.newyorker.com/magazine/2017/02/27/why-facts-dont-change-our-minds">Elizabeth
-                Kolbert's article for the New Yorker</a>
-            <a href="https://www.vox.com/science-and-health/2016/12/28/14088992/brain-study-change-minds">Brian
-                Resnick's article for Vox</a>
-            <a href="https://www.nytimes.com/2017/05/27/opinion/sunday/youre-not-going-to-change-your-mind.html">
-                An article in the New York Times I used as reference material.
-            </a>
-            <br /><br />
-            Enjoy the show!
-        </div>
+        <div id="pod-title"></div>
+        <div id="pod-time-current"></div>
+        <div id="pod-time-end"></div>
+        <div id="pod-expand">...</div>
+        <div id="pod-description"></div>
     </div>
 
-    <audio id="pod-player">
-        <source src="https://s3.amazonaws.com/uc-nerd-pod/1.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="pod-player" src="" type="audio/mpeg"></audio>
 
     <script>
         var playBtn = document.querySelector('#pod-play');
+        var pauseBtn = document.querySelector('#pod-pause');
         var player = document.querySelector('#pod-player');
         var podTime = document.querySelector('#pod-time-current');
-        var totalTime = document.querySelector('#pod-player').duration;
-        
-        document.querySelector('#pod-time-end').innerHTML = document.querySelector('#pod-player').duration;
+        var podTimeEnd = document.querySelector('#pod-time-end');
+        var podForward = document.querySelector('#pod-forwards');
+        var podBackward = document.querySelector('#pod-back');
+
+        var podTitle = document.querySelector('#pod-title');
+        var podDescription = document.querySelector('#pod-description');
+
+        var jData = {};
+        var urlVars = {};
+        var episode = 0;
+
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
 
         var getJSON = function (url, successHandler, errorHandler) {
             var xhr = typeof XMLHttpRequest != 'undefined' ?
@@ -288,19 +303,74 @@
             xhr.send();
         };
 
-        playBtn.addEventListener('click', function(){
-            document.querySelector('#pod-player').play();
-        });
-
-        player.addEventListener('change', function(){
-            podTime.innerHTML = player.currentTime;
-        });
-
-        getJSON('/test/json', function (data) {
+        getJSON('pod.json', function (data) {
             console.log('Get success: ', data);
+            jData = data;
+
+            initialize();
         }, function (status) {
             console.log('Something went wrong.');
         });
+
+        function initialize() {
+            urlVars = getUrlVars();
+            console.log(urlVars);
+
+            if (jData.item[urlVars.e]) {
+                console.log('episode ', urlVars.e);
+                episode = urlVars.e;
+            } else episode = jData.item.length - 1
+
+            podTitle.innerHTML = jData.item[episode].title;
+            podDescription.innerHTML = jData.item[episode].description;
+
+            player.src = jData.item[episode].enclosure;
+
+            setTimeout(function(){
+                var durationMin = Number.parseFloat(player.duration / 60).toFixed(0);
+                var durationSec = Number.parseFloat(player.duration % 60).toFixed(0);
+
+                podTimeEnd.innerHTML = returnTime(durationSec, durationMin);
+                podTime.innerHTML = '00:00';
+            }, 500)
+
+            playBtn.addEventListener('click', function () {
+                document.querySelector('#pod-player').play();
+                playBtn.parentElement.classList.toggle('play-clicked');
+            });
+
+            pauseBtn.addEventListener('click', function () {
+                document.querySelector('#pod-player').pause();
+                pauseBtn.parentElement.classList.toggle('play-clicked');
+            });
+
+            podForward.addEventListener('click', function () {
+                player.currentTime = player.currentTime + 30;
+            });
+
+            podBackward.addEventListener('click', function () {
+                player.currentTime = player.currentTime - 30;
+            });
+        }
+
+        player.ontimeupdate = function () {
+            var clockSec = Number.parseFloat(player.currentTime).toFixed(0) % 60;
+            var clockMin = Math.floor(Number.parseFloat(player.currentTime).toFixed(0) / 60);
+
+            if(player.currentTime > 0) podTime.innerHTML = returnTime(clockSec, clockMin);
+        };
+
+        function returnTime(clockSec, clockMin) {
+            if (clockSec < 10) {
+                if (clockMin < 10) {
+                    return ('0' + clockMin + ':0' + clockSec);
+                } else return (clockMin + ':0' + clockSec);
+            } else {
+                if (clockMin < 10) {
+                    return ('0' + clockMin + ':' + clockSec);
+                } else return (clockMin + ':' + clockSec);
+            }
+        }
 
         function debounce(func, wait, immediate) {
             var timeout;
