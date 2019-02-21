@@ -132,6 +132,11 @@
             float: right;
         }
 
+        .episode.episodeClick {
+            font-weight: bold;
+            padding: 20px 0;
+        }
+
         @media screen and (max-width: 900px) {
             #page-title {
                 margin-top: 0px;
@@ -367,30 +372,20 @@
                 episode = urlVars.e;
             } else episode = jData.item.length - 1
 
-            podTitle.innerHTML = jData.item[episode].title;
-            podDescription.innerHTML = jData.item[episode].description;
-
-            player.src = jData.item[episode].enclosure;
-
-            setTimeout(function(){
-                var durationMin = Number.parseFloat(player.duration / 60).toFixed(0);
-                var durationSec = Number.parseFloat(player.duration % 60).toFixed(0);
-
-                podTimeEnd.innerHTML = returnTime(durationSec, durationMin);
-            }, 2000);
-
             var episodeList = '';
             var episodeDate = '';
             for(i=0; i < jData.item.length; i++){
                 episodeDate = new Date(jData.item[i].pubDate);
+                episodeDate =  (episodeDate.getMonth() + 1) + "-" + episodeDate.getDate() + "-" + episodeDate.getFullYear();
                 episodeList += '<div class="episode" data-e="'+ i +'">'+
                                 '<div class="episode-number">'+ i +'</div>'+
                                 '<div class="episode-title">'+ jData.item[i].title +'</div>'+
                                 '<div class="episode-date">'+ episodeDate +'</div></div>';
             }
-
             podEpisodes.innerHTML = episodeList;
-            console.log(episodeList);
+            episodes = document.getElementsByClassName('episode');
+
+            setPlayer();
 
             playBtn.addEventListener('click', function () {
                 document.querySelector('#pod-player').play();
@@ -414,19 +409,46 @@
                 podExpand.parentElement.classList.toggle('expand');
             });
 
-            episodes = document.getElementsByClassName('episodes');
-            episodes.addEventListener('click', function(){
+            for(var j=0; j<episodes.length; j++){
+                episodes[j].addEventListener('click', function(){
+                    if(!this.classList.contains('episodeClick')){
+                        // for(var v=0; v<episodes.length; v++){
+                        //     this.classList.remove('episodeClick');
+                        // }
+                        // this.classList.add('episodeClick');
 
-            });
+                        episode = this.dataset.e;
+                        console.log(episode);
+                        setPlayer();
+                    }
+                });
+            }
         }
 
         player.ontimeupdate = function () {
             var clockSec = Number.parseFloat(player.currentTime).toFixed(0) % 60;
             var clockMin = Math.floor(Number.parseFloat(player.currentTime).toFixed(0) / 60);
 
-            if(player.currentTime == 0) podTimeEnd.innerHTML = jData.item[episode].duration;
             podTime.innerHTML = returnTime(clockSec, clockMin);
         };
+
+        function setPlayer(){
+            pauseBtn.parentElement.classList.remove('play-clicked');
+
+            podTitle.innerHTML = jData.item[episode].title;
+            podDescription.innerHTML = jData.item[episode].description;
+
+            player.src = jData.item[episode].enclosure;
+            
+            var itunesDuration = String(jData.item[episode].itunesduration);
+            if(itunesDuration.substring(0,2) == '00') podTimeEnd.innerHTML = itunesDuration.slice(3, 8);
+            else podTimeEnd.innerHTML = itunesDuration;
+
+            for(var k=0; k<episodes.length; k++){
+                if(episode == episodes[k].dataset.e) episodes[k].classList.add('episodeClick');
+                else episodes[k].classList.remove('episodeClick');
+            }
+        }
 
         function returnTime(clockSec, clockMin) {
             if (clockSec < 10) {
