@@ -296,18 +296,7 @@
             </svg>
         </div>
         <div id="pod-description"></div>
-        <div id="pod-episodes">
-            <div class="episode" data-e="0">
-                <div class="episode-number">0</div>
-                <div class="episode-title">Teaser</div>
-                <div class="episode-date">02-15-2019</div>
-            </div>
-            <div class="episode" data-e="1">
-                <div class="episode-number">1</div>
-                <div class="episode-title">Try and Change My Mind</div>
-                <div class="episode-date">06-12-2019</div>
-            </div>
-        </div>
+        <div id="pod-episodes"></div>
     </div>
 
     <audio id="pod-player" src="" type="audio/mpeg"></audio>
@@ -321,9 +310,11 @@
         var podForward = document.querySelector('#pod-forwards');
         var podBackward = document.querySelector('#pod-back');
         var podExpand = document.querySelector('#pod-expand');
+        var podEpisodes = document.querySelector('#pod-episodes');
 
         var podTitle = document.querySelector('#pod-title');
         var podDescription = document.querySelector('#pod-description');
+        var episodes = '';
 
         var jData = {};
         var urlVars = {};
@@ -386,8 +377,19 @@
                 var durationSec = Number.parseFloat(player.duration % 60).toFixed(0);
 
                 podTimeEnd.innerHTML = returnTime(durationSec, durationMin);
-                podTime.innerHTML = '00:00';
-            }, 500)
+            }, 2000);
+
+            var episodeList = '';
+            var episodeDate = '';
+            for(i=0; i < jData.item.length; i++){
+                episodeDate = new Date(jData.item[i].pubDate);
+                episodeList += '<div class="episode" data-e="'+ i +'">'+
+                                '<div class="episode-number">'+ i +'</div>'+
+                                '<div class="episode-title">'+ jData.item[i].title +'</div>'+
+                                '<div class="episode-date">'+ episodeDate +'</div></div>';
+            }
+
+            podEpisodes.innerHTML = episodeList;
 
             playBtn.addEventListener('click', function () {
                 document.querySelector('#pod-player').play();
@@ -411,7 +413,8 @@
                 podExpand.parentElement.classList.toggle('expand');
             });
 
-            document.getElementsByClassName('episodes').addEventListener('click', function(){
+            episodes = document.getElementsByClassName('episodes');
+            episodes.addEventListener('click', function(){
 
             });
         }
@@ -420,7 +423,8 @@
             var clockSec = Number.parseFloat(player.currentTime).toFixed(0) % 60;
             var clockMin = Math.floor(Number.parseFloat(player.currentTime).toFixed(0) / 60);
 
-            if(player.currentTime > 0) podTime.innerHTML = returnTime(clockSec, clockMin);
+            if(player.currentTime == 0) podTimeEnd.innerHTML = jData.item[episode].duration;
+            podTime.innerHTML = returnTime(clockSec, clockMin);
         };
 
         function returnTime(clockSec, clockMin) {
