@@ -129,14 +129,11 @@
     <script>
         var upNewBtn = document.getElementById('up-new-btn');
         var upExBtn = document.getElementById('up-ex-btn');
-        
         var upNewBox = document.getElementById('up-new-box');
         var upExBox = document.getElementById('up-ex-box');
-
         var upExSubmit = document.getElementById('up-ex-submit-btn');
-        
 
-        var testPod = {};
+        var jData = {};
 
         var getJSON = function(url, successHandler, errorHandler) {
             var xhr = typeof XMLHttpRequest != 'undefined'
@@ -156,15 +153,15 @@
             xhr.send();
         };
 
-        getJSON('/test/json', function(data) {
+        getJSON('/test.json', function(data) {
             console.log('Get success: ' , data);
-            testPod = data;
+            jData = data;
 
             var updateHTML = '';
             updateHTML = '<div class="ex-pod-select-box"><select id="ex-pod-select"><option value="" disabled="" selected="" hidden="hidden">Select Podcast to Edit:</option>';
                 
-            for(var i=0; i < testPod.item.length; i++){
-                updateHTML += '<option value="'+i+'">'+ i +': '+ testPod.item[i].title +'</option>';
+            for(var i=0; i < jData.item.length; i++){
+                updateHTML += '<option value="'+i+'">'+ i +': '+ jData.item[i].title +'</option>';
             }
 
             updateHTML += '</select></div>';
@@ -177,7 +174,7 @@
                 document.getElementById('up-ex-select-box').classList.add('select-move-up');
             });
 
-            var nameSuggestion = 'Should probably be titled: '+ testPod.item.length + '.mp3';
+            var nameSuggestion = 'Should probably be titled: '+ jData.item.length + '.mp3';
 
             document.getElementById('name-suggestion').innerHTML = nameSuggestion;
         }, function(status) {
