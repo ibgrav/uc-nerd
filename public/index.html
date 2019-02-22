@@ -448,6 +448,7 @@
             var itunesDuration = String(jData.item[episode].itunesduration);
             if(itunesDuration.substring(0,2) == '00') podTimeEnd.innerHTML = itunesDuration.slice(3, 8);
             else podTimeEnd.innerHTML = itunesDuration;
+            podTime.innerHTML = '00:00';
 
             for(var k=0; k<episodes.length; k++){
                 if(episode == episodes[k].dataset.e) episodes[k].classList.add('episodeClick');

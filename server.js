@@ -241,7 +241,7 @@ app.post('/admin/send/pod', function (req, res) {
 
     res.send('<style>body {font-size: 20px;background-color:rgb(125,175,150); color:rgb(240,240,240);}</style><div style="width:100%; margin: auto; text-align: center"><br/><br/><br/><br/>' +
         'You have successfull uploaded the podcast<br/><br/><br/><br/><div style="text-align: left;font-size:14px;"></div><br/><br/><br/><br/>' +
-        'See if it works: <br/><br/><audio controls><source src="https://undercovercast.com/pod/' + newFileName + '" type="audio/ogg">' +
+        'See if it works: <br/><br/><audio controls><source src="https://s3.amazonaws.com/uc-nerd-pod/' + newFileName + '" type="audio/ogg">' +
         'Your browser does not support the audio element.</audio><br/><br/><a href="https://undercovercast.com/admin2.html">Make it live</a></div>');
 
 });
