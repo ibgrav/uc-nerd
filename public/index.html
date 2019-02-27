@@ -379,7 +379,7 @@
 
             var episodeList = '<div class="episode-header">Episodes</div>';
             var episodeDate = '';
-            for(i=0; i < jData.item.length; i++){
+            for(i = jData.item.length - 1; i >= 0; i--){
                 episodeDate = new Date(jData.item[i].pubDate);
                 episodeDate =  (episodeDate.getMonth() + 1) + "-" + episodeDate.getDate() + "-" + episodeDate.getFullYear();
                 episodeList += '<div class="episode" data-e="'+ i +'">'+
